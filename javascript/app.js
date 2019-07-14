@@ -3,6 +3,8 @@ window.onload = function (){
     var count = 45;
     var num = 0;
     var marker= 0;
+    var right= 0;
+    var wrong= 0;
     $.ajax({
         method: "GET",
         url: "https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple"
@@ -15,24 +17,27 @@ window.onload = function (){
         
     }
     function clock(){
-        $("#timer").html("<h1>"+ count +"</h1>");
+        $("#timer").html("<h4>"+ count +"</h4><br><p>Seconds left</p>" );
         // console.log(count);
         if( count < 45 && Number.isInteger(count/15) ){
             $(".notAnswer").eq(marker).css("opacity", 0);
             marker++;
         } 
         if( count === 0){
-            alert('out of time');
+            wrong++;
+            console.log("wrong: "+ wrong);
             reset();
+            alert('out of time');
         }
         count --;
     };
 
-    setInterval(clock, 1000);
+    var interval =setInterval(clock, 1000);
 
     
     newDiv= $("<div>");
     function getQuestion(){
+        $(newDiv).append("<h2> Question: "+ (num +1) +" </h2>");
         $(newDiv).append("<h2>"+ questions[num].question+ "</h2>");
         
         for(let k=0; k < questions[num].incorrect_answers.length; k++){
@@ -49,16 +54,29 @@ window.onload = function (){
         newDiv.append(correct);
         $("#questionBox").append(newDiv);
         $(".answer").on("click",()=>{
-           alert('correct');
+            newDiv.empty();
+            newDiv.append("<h2>Congrats! that was correct!</h2>");
+            setTimeout(reset,4000);
            reset();
+           right++;
+           console.log("right: " + right);
         
         })
     };
     function reset (){
         num++; 
+       if( num > 9){ 
+        $("#timer").empty();
+        clearInterval(interval);
+        newDiv.empty();
+        newDiv.append("<h2>Congrats!</h2>");
+        newDiv.append("<h2>You answered "+ right + " right</h2>");
+    }else{
         newDiv.empty(); 
         count = 45; 
         getQuestion();
+        
+        }
     }
     getQuestion();
     
