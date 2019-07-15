@@ -1,0 +1,33 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+
+
+}
+.container{
+    width: 100%;
+    padding-top: 10%;
+    margin: 0 auto;
+    height: 100%;
+    background: url('https://cdn.ventrata.com/image/upload/ar_1.5,c_fill,dpr_2.0,f_jpg,w_500/v1506947196/uoei3qdvwnv74lciiaei.jpg') center no-repeat;
+    background-size: cover;
+}
+.display{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    background: white;
+    border: solid 2px;
+
+
+}
+.notAnswer{
+    opacity: 1;
+    transition: opacity, 2s;
+}

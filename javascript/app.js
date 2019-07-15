@@ -1,6 +1,6 @@
 window.onload = function (){
     var questions = [];
-    var count = 5;
+    var count = 45;
     var num = 0;
     var marker= 0;
     var right= 0;
@@ -18,10 +18,10 @@ window.onload = function (){
     }
     function clock(){
         $("#timer").html("<h4>"+ count +"</h4><br><p>Seconds left</p>" );
-        count --;
         // console.log(count);
         if( count < 45 && Number.isInteger(count/15) ){
             $(".notAnswer").eq(marker).css("opacity", 0);
+            console.log(marker);
             marker++;
         } 
         if( count === 0){
@@ -33,6 +33,9 @@ window.onload = function (){
             newDiv.append("<h2>Out of time</h2>");
             console.log("wrong: "+ wrong);
         }
+        
+        count --;
+        
     };
 
     
@@ -65,6 +68,16 @@ window.onload = function (){
             newDiv.append("<h2>Congrats! that was correct!</h2>");
             console.log("right: " + right);
         })
+        $(".notAnswer").on("click",()=>{
+            wrong++;
+            $("#timer").empty();
+            setTimeout(reset,1000);
+    
+            newDiv.empty();
+            newDiv.append("<h2>I'm sorry, that's incorrect!</h2>");
+            console.log("right: " + right);
+        })
+          
             
     };
     function reset (){
@@ -80,7 +93,7 @@ window.onload = function (){
 
             newDiv.empty();  
             count = 45; 
-            if (marker < 2){
+            if (marker < 2 ){
                 marker= num;
             }else{
                 marker= 0;
